@@ -1,4 +1,4 @@
-export default class AvgDegreeService {
+export default class TopDegreeService {
     /**
      * @type {neo4j.Driver}
      */
@@ -14,29 +14,27 @@ export default class AvgDegreeService {
       this.driver = driver;
     }
   
-    async getAvgDegree(speciesInput, nodeList) {
+    async getTopDegree(k) {
       const session = this.driver.session();
       const res = await session.executeRead((tx) =>
         tx.run(
           `
-            MATCH (p:protein {txid: $speciesInput})
-            WHERE p.id IN toStringList($nodeList)
-            WITH p
-            MATCH (p)-[r:ProPro]-()
-            WITH p, count(r) as degree
-            RETURN avg(degree) as averageDegree;
+          MATCH (n)-[r:ProPro]-(g)
+          WITH n,count(n) as degree
+          ORDER BY degree DESC LIMIT toInteger($k)
+          RETURN n
             `,
           {
-            speciesInput: speciesInput,
-            nodeList: nodeList,
+            k: k,
           }
         )
       );
   
-      const deg = res.records;
+      const nodes = res.records;
   
       await session.close();
   
-      return deg;
+      //return nodes;
+      return res.records.map((record) => record.get('n'));
     }
   }

@@ -17,6 +17,8 @@ import AllShortestPathsService from "../services/dijkstra.all.service.js";
 import ProteinFinderService from "../services/protein.finder.service.js";
 import GoFinderService from "../services/go.finder.service.js";
 import AvgDegreeService from "../services/avg.degree.service.js";
+import TopDegreeService from "../services/top.degree.service.js";
+
 const router = new Router();
 const jsonParser = bodyParser.json();
 
@@ -40,6 +42,26 @@ router.post("/getAvgDegree", jsonParser, async (req, res, next) => {
     console.log(avgDegree);
 
     res.json(avgDegree);
+  } catch (e) {
+    next(e);
+  }
+});
+
+// Test this with {"k":10}
+router.post("/getTopDegree", jsonParser, async (req, res, next) => {
+  const data = req.body;
+  const k = data.k;
+  console.log("K");
+  console.log(k)
+
+  try {
+    const topDegreeService = new TopDegreeService(getDriver());
+
+    const topDegree = await topDegreeService.getTopDegree(k);
+    console.log("Top Degree:");
+    console.log(topDegree);
+
+    res.json(topDegree);
   } catch (e) {
     next(e);
   }
