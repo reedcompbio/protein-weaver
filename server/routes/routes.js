@@ -16,12 +16,33 @@ import GoNodeService from "../services/go.node.service.js";
 import AllShortestPathsService from "../services/dijkstra.all.service.js";
 import ProteinFinderService from "../services/protein.finder.service.js";
 import GoFinderService from "../services/go.finder.service.js";
+import AvgDegreeService from "../services/avg.degree.service.js";
 const router = new Router();
 const jsonParser = bodyParser.json();
 
 router.get("/test", (req, res) => {
   res.json({ message: "Successfully connected to the backend API" });
   console.log("successfully connected to the backend API");
+});
+
+//Example of API call in routes.js
+
+router.post("/getAvgDegree", jsonParser, async (req, res, next) => {
+  const data = req.body;
+  const nodeList = data.nodeList;
+  const species = data.species;
+
+  try {
+    const avgDegreeService = new AvgDegreeService(getDriver());
+
+    const avgDegree = await avgDegreeService.getAvgDegree(species, nodeList);
+    console.log("Average Degree:");
+    console.log(avgDegree);
+
+    res.json(avgDegree);
+  } catch (e) {
+    next(e);
+  }
 });
 
 router.get("/getMovie", async (res, next) => {
