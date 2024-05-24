@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FaInfo, FaHome, FaSearch } from "react-icons/fa";
 import { IconContext } from "react-icons";
+//import { PiAcornFill } from "react-icons/pi";
+import { AiFillAlert } from "react-icons/ai";
 
 export default function NavBar() {
   return (
@@ -33,6 +35,20 @@ export default function NavBar() {
                 <FaSearch />
               </IconContext.Provider>
               <div>Query</div>
+            </button>
+          </Link>
+        </li>
+        <li>
+          <Link to={`/newpage`}>
+            <button className="navbar-menu-button">
+              <IconContext.Provider
+                value={{
+                  size: "1.5em",
+                }}
+              >
+                <AiFillAlert />
+              </IconContext.Provider>
+              <div>New</div>
             </button>
           </Link>
         </li>

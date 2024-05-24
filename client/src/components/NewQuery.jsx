@@ -8,7 +8,13 @@ export default function NewQuery() {
 
     // execute query on page reload
     useEffect(() => {
-        fetch("/api/newQuery")
+        fetch("/api/getTopDegree", {
+            method:'POST',
+            headers: {
+                'Content-type':'application/json',
+            },
+            body: JSON.stringify({"k":10}),
+        })
             .then((res) => res.json())
             .then((data) => {
                 const names = data.map((item) => item.properties.name); // extract just names
@@ -28,7 +34,13 @@ export default function NewQuery() {
         e.preventDefault(); // prevent default form submission
 
         // copied exactly from the useEffect statement
-        fetch("/api/newQuery")
+        fetch("/api/getTopDegree", {
+            method:'POST',
+            headers: {
+                'Content-type':'application/json',
+            },
+            body: JSON.stringify({"k":10}),
+        })
             .then((res) => res.json())
             .then((data) => {
                 const names = data.map((item) => item.properties.name);
@@ -44,9 +56,10 @@ export default function NewQuery() {
 
     return (
         <div>
-            <button onClick={handleNewQuery}>{nodeNames.map((name, index) => (
+            <button onClick={handleNewQuery}>Button!</button>
+            {nodeNames.map((name, index) => (
                 <p key={index}>{index + 1}: {name}</p>
-            ))}</button>
+            ))}
         </div>
     );
 
