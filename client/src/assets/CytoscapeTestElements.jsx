@@ -4,6 +4,7 @@ export const cytoscapeTestElements = [
       id: "FBgn0003731",
       label: "Egfr",
       type: "source",
+      degree: "12"
     },
   },
   {
@@ -11,6 +12,7 @@ export const cytoscapeTestElements = [
       id: "FBgn0031972",
       label: "Wwox",
       type: "go_protein",
+      degree: "15"
     },
   },
   {
@@ -123,25 +125,29 @@ export const cytoscapeTest2 = [
     data: {
       source: "FBgn0031972",
       target: "FBgn0003731",
+      evidence: "evidence test1"
     },
   },
   {
     data: {
       source: "FBgn0264492",
       target: "FBgn0003731",
+      evidence: "evidence test2"
     },
   },
   {
     data: {
       source: "FBgn0000499",
       target: "FBgn0003731",
+      evidence: "evidence test3"
     },
   },
   {
     data: {
       source: "FBgn0031972",
       target: "FBgn0000499",
-      type: "shared"
+      type: "shared",
+      evidence: "evidence test4"
     },
   },
   //   nodeList: ["FBgn0003731", "FBgn0031972", "FBgn0264492", "FBgn0000499"],

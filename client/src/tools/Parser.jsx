@@ -21,19 +21,21 @@ export function NetworkParserPath(data, source, go_term) {
         data: {
           id: currentPath[j].properties.id,
           label: currentPath[j].properties.name,
+          degree: currentPath[j].properties.degree.low
         },
       };
       if (
-        (currentPath[j].properties.name.toUpperCase() ===
-          source.toUpperCase() ||
-          currentPath[j].properties.id.toUpperCase() ===
-            source.toUpperCase()) &&
+        (currentPath[j].properties.name.toUpperCase() === source.toUpperCase() ||
+          currentPath[j].properties.id.toUpperCase() === source.toUpperCase() ||
+          currentPath[j].properties.alt_name.toUpperCase() === source.toUpperCase()
+        ) &&
         j == currentPath.length - 2
       ) {
         nodeEntry.data.type = "go_source";
       } else if (
         currentPath[j].properties.name.toUpperCase() === source.toUpperCase() ||
-        currentPath[j].properties.id.toUpperCase() === source.toUpperCase()
+        currentPath[j].properties.id.toUpperCase() === source.toUpperCase() ||
+        currentPath[j].properties.alt_name.toUpperCase() === source.toUpperCase()
       ) {
         nodeEntry.data.type = "source";
       } else if (j == currentPath.length - 2) {
@@ -55,7 +57,7 @@ export function NetworkParserPath(data, source, go_term) {
         !parsedData.edgeList.includes(endNode + startNode)
       ) {
         let edgeEntry = {
-          data: { source: endNode, target: startNode },
+          data: { source: endNode, target: startNode, evidence: "evidenceTest"},
         };
         parsedData.edgeList.push(startNode + endNode);
         parsedData.edges.push(edgeEntry);
@@ -90,7 +92,7 @@ export function EdgeDataParser(networkData, edgeData) {
       edgeData[i]._fields[0].segments[0].relationship.type != "ProGo"
     ) {
       let edgeEntry = {
-        data: { source: endNode, target: startNode, type: "shared" },
+        data: { source: endNode, target: startNode, type: "shared", evidence: "evidenceTest"},
       };
       networkData.edgeList.push(startNode + endNode);
       networkData.edges.push(edgeEntry);
@@ -123,19 +125,21 @@ export function NetworkParserNode(data, source, k) {
         data: {
           id: currentPath[j].properties.id,
           label: currentPath[j].properties.name,
+          degree: currentPath[j].properties.degree.low
         },
       };
       if (
-        (currentPath[j].properties.name.toUpperCase() ===
-          source.toUpperCase() ||
-          currentPath[j].properties.id.toUpperCase() ===
-            source.toUpperCase()) &&
+        (currentPath[j].properties.name.toUpperCase() === source.toUpperCase() ||
+          currentPath[j].properties.id.toUpperCase() === source.toUpperCase() ||
+          currentPath[j].properties.alt_name.toUpperCase() === source.toUpperCase()
+        ) &&
         j == currentPath.length - 1
       ) {
         nodeEntry.data.type = "go_source";
       } else if (
         currentPath[j].properties.name.toUpperCase() === source.toUpperCase() ||
-        currentPath[j].properties.id.toUpperCase() === source.toUpperCase()
+        currentPath[j].properties.id.toUpperCase() === source.toUpperCase() ||
+        currentPath[j].properties.alt_name.toUpperCase() === source.toUpperCase()
       ) {
         nodeEntry.data.type = "source";
       } else if (j == currentPath.length - 1) {
@@ -159,7 +163,7 @@ export function NetworkParserNode(data, source, k) {
         !parsedData.edgeList.includes(endNode + startNode)
       ) {
         let edgeEntry = {
-          data: { source: endNode, target: startNode },
+          data: { source: endNode, target: startNode, evidence: "evidenceTest"},
         };
         parsedData.edgeList.push(startNode + endNode);
         parsedData.edges.push(edgeEntry);
